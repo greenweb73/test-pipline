@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: CI
+name: Deploy via git-ftp
 
 # Controls when the action will run. Triggers the workflow on push or pull request
 # events but only for the master branch
@@ -10,21 +10,15 @@ on:
   pull_request:
     branches: [ master ]
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
-  my_cd_part:
+  deploy:
     name: Deploy
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@master
-    - name: copy file via ssh password
-      uses: appleboy/scp-action@master
+    - uses: actions/checkout@v1
+    - name: git-ftp push
+      uses: sebastianpopp/git-ftp-action@releases/v3
       with:
-        host: ${{ secrets.HOST }}
-        username: ${{ secrets.USERNAME }}
+        url: ${{ secrets.HOST }}
+        user: ${{ secrets.USERNAME }}
         password: ${{ secrets.PASSWORD }}
-        key: ${{ secrets.KEY }}
-        port: "22"  
-        source: "index.html"
-        target: ""
