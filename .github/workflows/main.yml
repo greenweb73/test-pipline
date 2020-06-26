@@ -9,8 +9,8 @@ on:
     branches: [ master ]
     
   pull_request:
-    types: [closed]
     branches: [ master ]
+    types: closed
 
 jobs:
   deploy:
@@ -19,6 +19,7 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - name: git-ftp push
+      if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true || github.event_name == 'push'
       uses: sebastianpopp/git-ftp-action@releases/v3
       with:
         url: ${{ secrets.HOST }}
