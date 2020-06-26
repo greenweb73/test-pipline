@@ -3,17 +3,17 @@ name: Deploy via git-ftp
 # Controls when the action will run. Triggers the workflow on push or pull request
 # events but only for the master branch
 on:
-  push:
-    branches: [ master ]
   pull_request:
     branches: [ master ]
 
 jobs:
   deploy:
-    name: Deploy
+    name: Deploy Pull Request
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
+    - name: Print Happy Message for CD finish
+      run : echo "github.event_name ${{ github.event_name }}"  
     - name: git-ftp push
       uses: sebastianpopp/git-ftp-action@releases/v3
       with:
