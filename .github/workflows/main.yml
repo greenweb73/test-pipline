@@ -1,5 +1,3 @@
-# This is a basic workflow to help you get started with Actions
-
 name: Deploy via git-ftp
 
 # Controls when the action will run. Triggers the workflow on push or pull request
@@ -7,10 +5,9 @@ name: Deploy via git-ftp
 on:
   push:
     branches: [ master ]
-    
   pull_request:
     branches: [ master ]
-    
+
 jobs:
   deploy:
     name: Deploy
